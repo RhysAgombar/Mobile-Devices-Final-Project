@@ -16,7 +16,9 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import android.support.v4.app.FragmentActivity;
+import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -48,8 +50,8 @@ public class MainActivity extends FragmentActivity
         final String longtitude = "-73.9852992";
 
         String url;
-        // make Call to the url
-        url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude + "," + longtitude + "&radius=100&sensor=true&key=" + GOOGLE_KEY;
+
+        url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude + "," + longtitude + "&keyword=coffee&type=cafe&radius=50000&sensor=true&key=" + GOOGLE_KEY;
 
         DownloadPlace task = new DownloadPlace(this);
         task.execute(url);
@@ -65,8 +67,6 @@ public class MainActivity extends FragmentActivity
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         } */
-
-
 
     }
 
@@ -84,12 +84,23 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    public void handlePlace(ArrayList<com.example.caffeine_hunter.simple_places_test.Place> place) {
+
+        ArrayAdapter<com.example.caffeine_hunter.simple_places_test.Place> adapter = new ArrayAdapter<com.example.caffeine_hunter.simple_places_test.Place>(this, android.R.layout.simple_list_item_1, android.R.id.text1, place);
+
+        ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
+
+        // Assign adapter to ListView
+        listView.setAdapter(adapter);
 
     }
+
+
+
+
 
     @Override
-    public void handlePlace(String place) {
-
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
+
 }

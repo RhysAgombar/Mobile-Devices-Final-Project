@@ -17,17 +17,19 @@ import java.util.ArrayList;
 /**
  * Created by 100515147 on 11/5/2016.
  */
-public class DownloadPlace extends AsyncTask<String, Void, String> {
+public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
     private String definition = null;
     private Exception exception = null;
     private PlaceListener listener = null;
+
+    ArrayList<Place> placeList = new ArrayList<Place>();
 
     public DownloadPlace(PlaceListener listener) {
         this.listener = listener;
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected ArrayList<Place> doInBackground(String... params) {
         try {
             // download the XML data from the service
             URL url = new URL(params[0]);
@@ -46,9 +48,6 @@ public class DownloadPlace extends AsyncTask<String, Void, String> {
             }
 
 
-            // Parse JSON array
-
-            ArrayList<Place> placeList = new ArrayList<Place>();
 
             JSONValue.parse(jsonText);
 
@@ -81,19 +80,17 @@ public class DownloadPlace extends AsyncTask<String, Void, String> {
                 placeList.add(nPlace);
 
             }
-            
-            // remember the data */
-            return definition;
+
         } catch (Exception e) {
             exception = e;
-            definition = "";
+            placeList = null;
         } finally {
-            return definition;
+            return placeList;
         }
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(ArrayList<Place> result) {
         // handle any error
         if (exception != null) {
             exception.printStackTrace();

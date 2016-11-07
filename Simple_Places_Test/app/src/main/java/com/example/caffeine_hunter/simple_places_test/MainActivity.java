@@ -86,12 +86,13 @@ public class MainActivity extends FragmentActivity
     @Override
     public void handlePlace(ArrayList<com.example.caffeine_hunter.simple_places_test.Place> place) {
 
-        ArrayAdapter<com.example.caffeine_hunter.simple_places_test.Place> adapter = new ArrayAdapter<com.example.caffeine_hunter.simple_places_test.Place>(this, android.R.layout.simple_list_item_1, android.R.id.text1, place);
+        //ArrayAdapter<com.example.caffeine_hunter.simple_places_test.Place> adapter = new ArrayAdapter<com.example.caffeine_hunter.simple_places_test.Place>(this, android.R.layout.simple_list_item_1, android.R.id.text1, place);
 
         ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
+        listView.setAdapter(new PlaceAdapter(this, place));
 
         // Assign adapter to ListView
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
 
     }
 

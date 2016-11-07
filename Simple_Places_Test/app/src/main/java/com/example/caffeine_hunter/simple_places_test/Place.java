@@ -8,6 +8,7 @@ import java.net.URL;
 public class Place {
     public String id;
     public String name;
+    public String address;
     public float lat;
     public float lng;
     public String photoRef;

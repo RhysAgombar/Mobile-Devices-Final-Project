@@ -68,6 +68,8 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
 
                 nPlace.iconURL = (String) place.get("icon");
 
+                nPlace.address = (String) place.get("vicinity");
+
                 JSONArray photo = (JSONArray) place.get("photos");
 
                 if (photo != null){

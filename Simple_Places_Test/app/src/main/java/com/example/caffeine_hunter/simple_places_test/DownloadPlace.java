@@ -21,6 +21,7 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
     private String definition = null;
     private Exception exception = null;
     private PlaceListener listener = null;
+    private static final String GOOGLE_KEY = "AIzaSyDSW3LLlaM50dEQfxuqARLin2uMZ3xOhcI";
 
     ArrayList<Place> placeList = new ArrayList<Place>();
 
@@ -47,7 +48,7 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
                 is.close();
             }
 
-
+// CoQBdwAAACC-uRAo9QRA3m_usydxkeqjeSUDPWNUjU5SofvIkB3JTdPN0tOfg8ZgYI_Hd5xnrgNy8jNNe_uKOnLBOlxEnPSYMC_0sNCHITy1m_nKXr96jQpNbR8TzkuLIhgnSF2erVOeBQ8-Knp8AeIh8hIwK6scnprBnjVwpAJAc9BFJro2EhCqi3Hn9ECnXE65XgVcIMaPGhRvIrZs2hryBlL33QKiFyeqmiifbA
 
             JSONValue.parse(jsonText);
 
@@ -72,12 +73,51 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
 
                 JSONArray photo = (JSONArray) place.get("photos");
 
-                if (photo != null){
+                String ref = null;
+                String preURL;
+
+                if (photo != null) {
                     JSONObject photoRef = (JSONObject) photo.get(0);
                     nPlace.photoRef = (String) photoRef.get("photo_reference");
+                    preURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&photoreference=" +  (String) photoRef.get("photo_reference") + "&key=" + GOOGLE_KEY;
                 } else {
                     nPlace.photoRef = null;
                 }
+
+
+                //URL url = null;
+                //try {
+                    // url = new URL(preURL);
+
+                    //ImageDownloader task = new ImageDownloader(this);
+                    //task.execute(preURL);
+
+                    //InputStream content = (InputStream)url.getContent();
+                    //Drawable d = Drawable.createFromStream(content , "src");
+                    //imgPlacePic.setImageDrawable(d);
+
+                //} catch (Exception e) {
+               //     e.printStackTrace();
+               // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 placeList.add(nPlace);
 

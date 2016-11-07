@@ -1,5 +1,7 @@
 package com.example.caffeine_hunter.simple_places_test;
 
+import android.graphics.drawable.Drawable;
+
 import java.net.URL;
 
 /**
@@ -13,6 +15,8 @@ public class Place {
     public float lng;
     public String photoRef;
     public String iconURL;
+    public Drawable image;
+
 
     public String toString(){
         return name;

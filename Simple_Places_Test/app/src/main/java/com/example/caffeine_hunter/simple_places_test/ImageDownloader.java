@@ -2,7 +2,6 @@ package com.example.caffeine_hunter.simple_places_test;
 
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.view.View;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -27,10 +26,10 @@ public class ImageDownloader extends AsyncTask<ImageData, Void, ImageData> {
         try {
             // download the XML data from the service
             URL url = new URL(params[0].url);
-            View view = params[0].view;
+            int id = params[0].id;
 
             InputStream content = (InputStream)url.getContent();
-            imgD = new ImageData(view, (Drawable.createFromStream(content, "src")));
+            imgD = new ImageData(id, Drawable.createFromStream(content, "src"));
 
 
         } catch (Exception e) {

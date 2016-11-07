@@ -1,6 +1,7 @@
 package com.example.caffeine_hunter.simple_places_test;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,12 +24,14 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity
-            implements OnConnectionFailedListener, PlaceListener {
+            implements OnConnectionFailedListener, PlaceListener, ImageListener {
 
     private GoogleApiClient mGoogleApiClient;
     private PlacePicker.IntentBuilder builder;
     private static final int PLACE_PICKER_FLAG = 1;
-    private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
+    private static final String GOOGLE_KEY = "AIzaSyBma_v3QYFn_TargQVk701kzcddODqHIYo";
+
+    ArrayList<com.example.caffeine_hunter.simple_places_test.Place> places = new ArrayList<com.example.caffeine_hunter.simple_places_test.Place>();
 
     //https://maps.googleapis.com/maps/api/place/search/xml?location=40.7463956,-73.9852992&radius=100&sensor=true&key=AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4
 
@@ -56,18 +59,6 @@ public class MainActivity extends FragmentActivity
         DownloadPlace task = new DownloadPlace(this);
         task.execute(url);
 
-        /*
-        try {
-           // Intent test = builder.build(MainActivity.this);
-
-           // startActivityForResult(test, PLACE_PICKER_FLAG);
-
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        } */
-
     }
 
     @Override
@@ -91,14 +82,41 @@ public class MainActivity extends FragmentActivity
         ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
         listView.setAdapter(new PlaceAdapter(this, place));
 
-        // Assign adapter to ListView
-        //listView.setAdapter(adapter);
+        places = place;
+
+        String preURL = null;
+
+        for (int i = 0; i < place.size(); i++){
+
+            if (place.get(i).photoRef != null) {
+                preURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&photoreference=" +  place.get(i).photoRef + "&key=" + GOOGLE_KEY;
+            } else {
+                preURL = place.get(i).iconURL;
+            }
+
+            try {
+                ImageDownloader task = new ImageDownloader(this);
+                task.execute(new ImageData(i,preURL));
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
 
     }
 
+    @Override
+    public void handleImage(ImageData image) {
 
+        places.get(image.id).image = image.d;
 
+        ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
+        listView.setAdapter(new PlaceAdapter(this, places));
 
+    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

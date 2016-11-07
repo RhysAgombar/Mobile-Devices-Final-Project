@@ -1,23 +1,22 @@
 package com.example.caffeine_hunter.simple_places_test;
 
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
 /**
  * Created by Raven on 11/6/2016.
  */
 public class ImageData {
-    String url = null;
-    View view = null;
+    int id;
+    String url;
     Drawable d = null;
 
-    public ImageData(String url, View view){
+    public ImageData(int id, String url){
+        this.id = id;
         this.url = url;
-        this.view = view;
     }
 
-    public ImageData(View view, Drawable d){
-        this.view = view;
+    public ImageData(int id, Drawable d){
+        this.id = id;
         this.d = d;
     }
 

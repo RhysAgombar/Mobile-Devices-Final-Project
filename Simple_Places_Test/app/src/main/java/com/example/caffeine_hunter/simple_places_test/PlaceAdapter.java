@@ -1,12 +1,20 @@
 package com.example.caffeine_hunter.simple_places_test;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 /**
@@ -17,7 +25,7 @@ public class PlaceAdapter extends BaseAdapter {
     private ArrayList<Place> data;
     private static final String GOOGLE_KEY = "AIzaSyBma_v3QYFn_TargQVk701kzcddODqHIYo";
 
-    public PlaceAdapter(Context context, ArrayList<Place> data){
+    public PlaceAdapter(Context context, ArrayList<Place> data) {
         this.context = context;
         this.data = data;
     }
@@ -37,6 +45,38 @@ public class PlaceAdapter extends BaseAdapter {
         return position;
     }
 
+
+    public double calcDistance(double longitude, double latitude) {
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+        try {
+
+            int test = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
+
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // wroooooooong. Just gets null.
+
+                double currentLong = location.getLongitude();
+                double currentLat= location.getLatitude();
+                double dLong = longitude - currentLong;
+                double dLat = latitude - currentLat;
+                double a = (Math.sin(dLat/2))*(Math.sin(dLat/2)) + Math.cos(currentLat) * Math.cos(latitude)* (Math.sin(dLong/2))*(Math.sin(dLong/2));
+                double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                double distance = 6373 * c;
+                return distance;
+            } else {
+                return -1.0;
+            }
+        } catch (Exception e){
+            int j = 0;
+            j++;
+        }
+
+        return -1.0;
+
+    }
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -54,13 +94,28 @@ public class PlaceAdapter extends BaseAdapter {
         lblAddress.setText(placeToDisplay.address);
 
         TextView lblDistance = (TextView)convertView.findViewById(R.id.tv_distance);
-        lblDistance.setText("10.5km");
+
+        double dist = calcDistance(placeToDisplay.lat, placeToDisplay.lng);
+        String displTxt = dist + "km";
+
+        if (dist < 0) {
+            displTxt = "ERR";
+        }
+        lblDistance.setText(displTxt);
 
         ImageView imgPlacePic = (ImageView)convertView.findViewById(R.id.iv_picture);
         imgPlacePic.setImageDrawable(placeToDisplay.image);
 
+        CheckBox chbx = (CheckBox)convertView.findViewById(R.id.cb_visited); // TODO: Actually update based on data
+
+        chbx.setChecked(placeToDisplay.visited);
+
+
+
         return convertView;
     }
+
+
 
 
 }

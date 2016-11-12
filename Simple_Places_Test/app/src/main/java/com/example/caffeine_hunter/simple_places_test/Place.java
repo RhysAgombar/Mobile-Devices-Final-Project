@@ -16,6 +16,7 @@ public class Place {
     public String photoRef;
     public String iconURL;
     public Drawable image;
+    public boolean visited = false;
 
 
     public String toString(){

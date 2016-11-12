@@ -1,8 +1,13 @@
 package com.example.caffeine_hunter.simple_places_test;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -23,6 +28,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+
+
 public class MainActivity extends FragmentActivity
             implements OnConnectionFailedListener, PlaceListener, ImageListener {
 
@@ -30,6 +37,10 @@ public class MainActivity extends FragmentActivity
     private PlacePicker.IntentBuilder builder;
     private static final int PLACE_PICKER_FLAG = 1;
     private static final String GOOGLE_KEY = "AIzaSyBma_v3QYFn_TargQVk701kzcddODqHIYo";
+
+    private static final String[] LOCATION_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     ArrayList<com.example.caffeine_hunter.simple_places_test.Place> places = new ArrayList<com.example.caffeine_hunter.simple_places_test.Place>();
 
@@ -46,6 +57,15 @@ public class MainActivity extends FragmentActivity
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.requestPermissions(LOCATION_PERMS, 23);
+        }
+
+        int test = ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+        test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
 
         builder = new PlacePicker.IntentBuilder();
 
@@ -81,6 +101,8 @@ public class MainActivity extends FragmentActivity
 
         ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
         listView.setAdapter(new PlaceAdapter(this, place));
+
+        int test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
 
         places = place;
 

@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -55,15 +56,15 @@ public class PlaceAdapter extends BaseAdapter {
 
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // wroooooooong. Just gets null.
-
+                DecimalFormat df = new DecimalFormat("#.#");
                 double currentLong = location.getLongitude();
                 double currentLat= location.getLatitude();
                 double dLong = longitude - currentLong;
                 double dLat = latitude - currentLat;
-                double a = (Math.sin(dLat/2))*(Math.sin(dLat/2)) + Math.cos(currentLat) * Math.cos(latitude)* (Math.sin(dLong/2))*(Math.sin(dLong/2));
+                double a = ((Math.sin(dLat/2))*(Math.sin(dLat/2))) + Math.cos(currentLat) * Math.cos(latitude)* ((Math.sin(dLong/2))*(Math.sin(dLong/2)));
                 double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                 double distance = 6373 * c;
-                return distance;
+                return Double.parseDouble(df.format(distance));
             } else {
                 return -1.0;
             }
@@ -71,11 +72,9 @@ public class PlaceAdapter extends BaseAdapter {
             int j = 0;
             j++;
         }
-
         return -1.0;
 
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

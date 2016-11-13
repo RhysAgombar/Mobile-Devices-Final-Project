@@ -105,10 +105,17 @@ public class PlaceAdapter extends BaseAdapter {
         ImageView imgPlacePic = (ImageView)convertView.findViewById(R.id.iv_picture);
         imgPlacePic.setImageDrawable(placeToDisplay.image);
 
-        CheckBox chbx = (CheckBox)convertView.findViewById(R.id.cb_visited); // TODO: Actually update based on data
+        final CheckBox chbx = (CheckBox)convertView.findViewById(R.id.cb_visited); // TODO: Actually update based on data
 
         chbx.setChecked(placeToDisplay.visited);
 
+        chbx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final boolean isChecked = chbx.isChecked();
+
+            }
+        });
 
 
         return convertView;

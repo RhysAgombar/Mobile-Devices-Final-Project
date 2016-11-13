@@ -18,6 +18,20 @@ public class Place {
     public Drawable image;
     public boolean visited = false;
 
+    public Place (String id, String name, String address, float lat, float lng, String photoRef, String iconURL, boolean visited) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
+        this.photoRef = photoRef;
+        this.iconURL = iconURL;
+        this.visited = visited;
+    }
+
+    public void setImage(Drawable image){
+        this.image = image;
+    }
 
     public String toString(){
         return name;

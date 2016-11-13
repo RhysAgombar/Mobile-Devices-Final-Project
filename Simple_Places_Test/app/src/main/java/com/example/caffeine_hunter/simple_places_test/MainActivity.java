@@ -28,8 +28,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-
-
 public class MainActivity extends FragmentActivity
             implements OnConnectionFailedListener, PlaceListener, ImageListener {
 

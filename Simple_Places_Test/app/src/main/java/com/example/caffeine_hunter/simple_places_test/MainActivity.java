@@ -73,15 +73,15 @@ public class MainActivity extends FragmentActivity
 
         LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            DecimalFormat df = new DecimalFormat("#.#");
-            latitude = location.getLatitude();
-            longtitude = location.getLongitude();
-        } else {
+        //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        //    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //    DecimalFormat df = new DecimalFormat("#.#");
+        //    latitude = location.getLatitude();
+        //    longtitude = location.getLongitude();
+        //} else {
             latitude = 43.9454;
             longtitude = -78.8964;
-        }
+        //}
 
 
         builder = new PlacePicker.IntentBuilder();

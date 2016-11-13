@@ -77,7 +77,7 @@ public class PlaceAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         Place placeToDisplay = data.get(position);
 
@@ -113,6 +113,9 @@ public class PlaceAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 final boolean isChecked = chbx.isChecked();
+
+                data.get(position).setVisited(isChecked);
+
             }
         });
 

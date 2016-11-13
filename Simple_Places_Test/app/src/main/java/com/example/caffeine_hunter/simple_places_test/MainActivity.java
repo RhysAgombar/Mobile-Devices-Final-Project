@@ -2,8 +2,12 @@ package com.example.caffeine_hunter.simple_places_test;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -26,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ListView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity
@@ -34,7 +39,7 @@ public class MainActivity extends FragmentActivity
     private GoogleApiClient mGoogleApiClient;
     private PlacePicker.IntentBuilder builder;
     private static final int PLACE_PICKER_FLAG = 1;
-    private static final String GOOGLE_KEY = "AIzaSyBma_v3QYFn_TargQVk701kzcddODqHIYo";
+    private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
 
     private static final String[] LOCATION_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -60,19 +65,30 @@ public class MainActivity extends FragmentActivity
             this.requestPermissions(LOCATION_PERMS, 23);
         }
 
-        int test = ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
-        test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        //int test = ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+        //test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        //test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        final Double latitude, longtitude;
+
+        LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            DecimalFormat df = new DecimalFormat("#.#");
+            latitude = location.getLatitude();
+            longtitude = location.getLongitude();
+        } else {
+            latitude = 43.9454;
+            longtitude = -78.8964;
+        }
 
 
         builder = new PlacePicker.IntentBuilder();
 
-        final String latitude = "40.7463956";
-        final String longtitude = "-73.9852992";
+        String url; //&keyword=coffee&type=cafe
 
-        String url;
-
-        url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude + "," + longtitude + "&keyword=coffee&type=cafe&radius=50000&sensor=true&key=" + GOOGLE_KEY;
+        url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude.toString() + "," + longtitude.toString() + "&keyword=coffee&type=cafe&radius=5000&sensor=true&key=" + GOOGLE_KEY;
 
         DownloadPlace task = new DownloadPlace(this);
         task.execute(url);
@@ -100,7 +116,7 @@ public class MainActivity extends FragmentActivity
         ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
         listView.setAdapter(new PlaceAdapter(this, place));
 
-        int test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        //int test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
 
         places = place;
 

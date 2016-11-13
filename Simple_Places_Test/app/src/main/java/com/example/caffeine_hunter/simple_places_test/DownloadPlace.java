@@ -21,7 +21,7 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
     private String definition = null;
     private Exception exception = null;
     private PlaceListener listener = null;
-    private static final String GOOGLE_KEY = "AIzaSyDSW3LLlaM50dEQfxuqARLin2uMZ3xOhcI";
+    private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
 
     ArrayList<Place> placeList = new ArrayList<Place>();
 

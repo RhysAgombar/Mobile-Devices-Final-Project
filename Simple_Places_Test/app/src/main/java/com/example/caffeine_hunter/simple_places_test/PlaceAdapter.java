@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class PlaceAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Place> data;
-    private static final String GOOGLE_KEY = "AIzaSyBma_v3QYFn_TargQVk701kzcddODqHIYo";
+    private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
 
     public PlaceAdapter(Context context, ArrayList<Place> data) {
         this.context = context;
@@ -52,16 +52,16 @@ public class PlaceAdapter extends BaseAdapter {
 
         try {
 
-            int test = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
+            //int test = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
 
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // wroooooooong. Just gets null.
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 DecimalFormat df = new DecimalFormat("#.#");
                 double currentLong = location.getLongitude();
-                double currentLat= location.getLatitude();
-                double dLong = longitude - currentLong;
-                double dLat = latitude - currentLat;
-                double a = ((Math.sin(dLat/2))*(Math.sin(dLat/2))) + Math.cos(currentLat) * Math.cos(latitude)* ((Math.sin(dLong/2))*(Math.sin(dLong/2)));
+                double currentLat = location.getLatitude();
+                double dLong = currentLong - longitude;
+                double dLat = currentLat - latitude;
+                double a = ((Math.sin((dLat)*Math.PI/180)/2))*(Math.sin((dLat)*Math.PI/180)/2) + Math.cos((latitude)*Math.PI/180) * Math.cos((currentLat)*Math.PI/180)* ((Math.sin((dLong)*Math.PI/180)/2))*(Math.sin((dLong)*Math.PI/180)/2);
                 double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                 double distance = 6373 * c;
                 return Double.parseDouble(df.format(distance));

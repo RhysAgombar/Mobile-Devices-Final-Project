@@ -8,15 +8,84 @@ import java.net.URL;
  * Created by 100515147 on 11/5/2016.
  */
 public class Place {
-    public String id;
-    public String name;
-    public String address;
-    public float lat;
-    public float lng;
-    public String photoRef;
-    public String iconURL;
-    public Drawable image;
-    public boolean visited = false;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public float getLat() {
+        return lat;
+    }
+
+    public float getLng() {
+        return lng;
+    }
+
+    public String getPhotoRef() {
+        return photoRef;
+    }
+
+    public String getIconURL() {
+        return iconURL;
+    }
+
+    public Drawable getImage() {
+        return image;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(float lng) {
+        this.lng = lng;
+    }
+
+    public void setPhotoRef(String photoRef) {
+        this.photoRef = photoRef;
+    }
+
+    public void setIconURL(String iconURL) {
+        this.iconURL = iconURL;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    private String id;
+    private String name;
+    private String address;
+    private float lat;
+    private float lng;
+    private String photoRef;
+    private String iconURL;
+    private Drawable image;
+    private boolean visited = false;
 
     public Place (String id, String name, String address, float lat, float lng, String photoRef, String iconURL, boolean visited) {
         this.id = id;

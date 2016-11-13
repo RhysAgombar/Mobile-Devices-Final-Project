@@ -87,14 +87,14 @@ public class PlaceAdapter extends BaseAdapter {
         }
 
         TextView lblPlaceName = (TextView)convertView.findViewById(R.id.tv_shopName);
-        lblPlaceName.setText(placeToDisplay.name);
+        lblPlaceName.setText(placeToDisplay.getName());
 
         TextView lblAddress = (TextView)convertView.findViewById(R.id.tv_address);
-        lblAddress.setText(placeToDisplay.address);
+        lblAddress.setText(placeToDisplay.getAddress());
 
         TextView lblDistance = (TextView)convertView.findViewById(R.id.tv_distance);
 
-        double dist = calcDistance(placeToDisplay.lat, placeToDisplay.lng);
+        double dist = calcDistance(placeToDisplay.getLat(), placeToDisplay.getLng());
         String displTxt = dist + "km";
 
         if (dist < 0) {
@@ -103,17 +103,16 @@ public class PlaceAdapter extends BaseAdapter {
         lblDistance.setText(displTxt);
 
         ImageView imgPlacePic = (ImageView)convertView.findViewById(R.id.iv_picture);
-        imgPlacePic.setImageDrawable(placeToDisplay.image);
+        imgPlacePic.setImageDrawable(placeToDisplay.getImage());
 
         final CheckBox chbx = (CheckBox)convertView.findViewById(R.id.cb_visited); // TODO: Actually update based on data
 
-        chbx.setChecked(placeToDisplay.visited);
+        chbx.setChecked(placeToDisplay.isVisited());
 
         chbx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final boolean isChecked = chbx.isChecked();
-
             }
         });
 

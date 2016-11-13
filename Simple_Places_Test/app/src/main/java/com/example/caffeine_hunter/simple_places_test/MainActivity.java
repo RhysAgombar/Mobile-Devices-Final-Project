@@ -108,10 +108,10 @@ public class MainActivity extends FragmentActivity
 
         for (int i = 0; i < place.size(); i++){
 
-            if (place.get(i).photoRef != null) {
-                preURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&photoreference=" +  place.get(i).photoRef + "&key=" + GOOGLE_KEY;
+            if (place.get(i).getPhotoRef() != null) {
+                preURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&photoreference=" +  place.get(i).getPhotoRef() + "&key=" + GOOGLE_KEY;
             } else {
-                preURL = place.get(i).iconURL;
+                preURL = place.get(i).getIconURL();
             }
 
             try {
@@ -131,7 +131,7 @@ public class MainActivity extends FragmentActivity
     @Override
     public void handleImage(ImageData image) {
 
-        places.get(image.id).image = image.d;
+        places.get(image.id).setImage(image.d);
 
         ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
         listView.setAdapter(new PlaceAdapter(this, places));

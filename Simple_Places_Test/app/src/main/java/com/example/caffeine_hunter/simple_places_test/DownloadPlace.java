@@ -57,67 +57,35 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
             for (int i = 0; i < arr.size(); i++) {
                 JSONObject place = (JSONObject) arr.get(i);
 
-                Place nPlace = new Place();
-                nPlace.id = (String) place.get("id");
-                nPlace.name = (String) place.get("name");
+                //Place nPlace = new Place();
+
+                String id = (String) place.get("id");
+                String name = (String) place.get("name");
 
                 JSONObject geo = (JSONObject) place.get("geometry");
                 JSONObject loc = (JSONObject) geo.get("location");
 
-                nPlace.lat = Float.parseFloat(loc.get("lat").toString());
-                nPlace.lng = Float.parseFloat(loc.get("lng").toString());
+                float lat = Float.parseFloat(loc.get("lat").toString());
+                float lng = Float.parseFloat(loc.get("lng").toString());
 
-                nPlace.iconURL = (String) place.get("icon");
+                String iconURL = (String) place.get("icon");
 
-                nPlace.address = (String) place.get("vicinity");
+                String address = (String) place.get("vicinity");
 
                 JSONArray photo = (JSONArray) place.get("photos");
 
                 String ref = null;
                 String preURL;
 
+                String pRef = null;
+
                 if (photo != null) {
                     JSONObject photoRef = (JSONObject) photo.get(0);
-                    nPlace.photoRef = (String) photoRef.get("photo_reference");
+                    pRef = (String) photoRef.get("photo_reference");
                     preURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&photoreference=" +  (String) photoRef.get("photo_reference") + "&key=" + GOOGLE_KEY;
-                } else {
-                    nPlace.photoRef = null;
                 }
 
-
-                //URL url = null;
-                //try {
-                    // url = new URL(preURL);
-
-                    //ImageDownloader task = new ImageDownloader(this);
-                    //task.execute(preURL);
-
-                    //InputStream content = (InputStream)url.getContent();
-                    //Drawable d = Drawable.createFromStream(content , "src");
-                    //imgPlacePic.setImageDrawable(d);
-
-                //} catch (Exception e) {
-               //     e.printStackTrace();
-               // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                Place nPlace = new Place(id, name, address, lat, lng, pRef, iconURL, false);
 
                 placeList.add(nPlace);
 

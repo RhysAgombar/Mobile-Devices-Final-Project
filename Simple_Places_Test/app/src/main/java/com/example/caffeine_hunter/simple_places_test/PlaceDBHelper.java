@@ -51,7 +51,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
         db.delete("places", "", new String[] {});
     }
 
-    public void deleteElementByID(long id) {
+    public void deleteElementByID(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("places", "_id = ?", new String[] { ""+id });
     }

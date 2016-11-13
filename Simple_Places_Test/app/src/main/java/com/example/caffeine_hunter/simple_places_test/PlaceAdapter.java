@@ -109,11 +109,17 @@ public class PlaceAdapter extends BaseAdapter {
 
         chbx.setChecked(placeToDisplay.isVisited());
 
+        final PlaceDBHelper db = new PlaceDBHelper(convertView.getContext());
+
         chbx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final boolean isChecked = chbx.isChecked();
-
+                if(isChecked){
+                    db.addNewElement(data.get(position));
+                } else {
+                    db.deleteElementByID(data.get(position).getId());
+                }
                 data.get(position).setVisited(isChecked);
 
             }

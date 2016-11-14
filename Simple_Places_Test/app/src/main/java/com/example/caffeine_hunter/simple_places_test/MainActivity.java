@@ -53,6 +53,8 @@ public class MainActivity extends FragmentActivity
     private static final int PLACE_PICKER_FLAG = 1;
     private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
 
+    int radius = 5000; // To be changed using a slider or something...
+
     private static final String[] LOCATION_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION
     };
@@ -75,21 +77,21 @@ public class MainActivity extends FragmentActivity
 
         LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-        //    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        //    DecimalFormat df = new DecimalFormat("#.#");
-        //    latitude = location.getLatitude();
-        //    longtitude = location.getLongitude();
-        //} else {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            DecimalFormat df = new DecimalFormat("#.#");
+            latitude = location.getLatitude();
+            longtitude = location.getLongitude();
+        } else {
             latitude = 43.9454;
             longtitude = -78.8964;
-        //}
+        }
 
         String url; //&keyword=coffee&type=cafe
 
-        url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude.toString() + "," + longtitude.toString() + "&keyword=coffee&type=cafe&radius=5000&sensor=true&key=" + GOOGLE_KEY;
+        url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude.toString() + "," + longtitude.toString() + "&keyword=coffee&type=cafe&radius=" + radius +"&sensor=true&key=" + GOOGLE_KEY;
 
-        DownloadPlace task = new DownloadPlace(this);
+        DownloadPlace task = new DownloadPlace(this, this);
         task.execute(url);
 
     }
@@ -99,7 +101,7 @@ public class MainActivity extends FragmentActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case PLACE_PICKER_FLAG:
+                case PLACE_PICKER_FLAG: // ?
                     Place place = PlacePicker.getPlace(data, this);
                     //myLocation.setText(place.getName() + ", " + place.getAddress());
                     break;

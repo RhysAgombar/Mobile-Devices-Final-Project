@@ -14,6 +14,7 @@ public class Place {
     private String address;
     private float lat;
     private float lng;
+    private double dist;
     private String photoRef;
     private String iconURL;
     private Drawable image;
@@ -37,6 +38,10 @@ public class Place {
 
     public float getLng() {
         return lng;
+    }
+
+    public double getDist() {
+        return dist;
     }
 
     public String getPhotoRef() {
@@ -75,6 +80,10 @@ public class Place {
         this.lng = lng;
     }
 
+    public void setDist(double dist) {
+        this.dist = dist;
+    }
+
     public void setPhotoRef(String photoRef) {
         this.photoRef = photoRef;
     }
@@ -101,6 +110,7 @@ public class Place {
     public void setImage(Drawable image){
         this.image = image;
     }
+
 
     public String toString(){
         return id + " " + name + " " + address + " " + Float.toString(lat) + " " + Float.toString(lng) + " " + photoRef + " " + iconURL + " " + visited;

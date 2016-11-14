@@ -1,5 +1,6 @@
 package com.example.caffeine_hunter.simple_places_test;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import org.json.simple.JSONArray;
@@ -19,14 +20,16 @@ import java.util.ArrayList;
  */
 public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
     private String definition = null;
+    private Context context = null;
     private Exception exception = null;
     private PlaceListener listener = null;
     private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
 
     ArrayList<Place> placeList = new ArrayList<Place>();
 
-    public DownloadPlace(PlaceListener listener) {
+    public DownloadPlace(PlaceListener listener, Context context) {
         this.listener = listener;
+        this.context = context;
     }
 
     @Override
@@ -87,6 +90,8 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
 
                 Place nPlace = new Place(id, name, address, lat, lng, pRef, iconURL, false);
 
+                nPlace.setDist((new PlaceAdapter(context, null)).calcDistance(lat,lng));
+
                 placeList.add(nPlace);
 
             }
@@ -95,9 +100,58 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
             exception = e;
             placeList = null;
         } finally {
+
+            placeList = selectionSort(placeList);
+
+            float radius = 5.0f; // Pass actual radius later
+            int i = placeList.size() - 1;
+
+            while (i > 0){
+                if (placeList.get(i).getDist() > radius){
+                    placeList.remove(i);
+                }
+                i--;
+            }
+
+
             return placeList;
         }
     }
+
+    protected ArrayList<Place> selectionSort (ArrayList<Place> arr) {
+
+        ArrayList<Place> nArr = new ArrayList<Place>();
+
+        try {
+
+            int pos = 0;
+            double nDist = 1e9;
+            while (arr.size() > 0){
+                for (int i = 0; i < arr.size(); i++){
+                    if (arr.get(i).getDist() <= nDist) {
+                        nDist = arr.get(i).getDist();
+                        pos = i;
+                    }
+                }
+
+                nArr.add(arr.get(pos));
+
+                arr.remove(pos);
+
+                pos = 0;
+                nDist = 1e9;
+
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return nArr;
+
+    }
+
 
     @Override
     protected void onPostExecute(ArrayList<Place> result) {

@@ -52,9 +52,6 @@ public class PlaceAdapter extends BaseAdapter {
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         try {
-
-            //int test = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
-
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 DecimalFormat df = new DecimalFormat("#.#");
@@ -80,7 +77,6 @@ public class PlaceAdapter extends BaseAdapter {
     protected double toRadian(double value){
         return value*Math.PI/180;
     }
-
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {

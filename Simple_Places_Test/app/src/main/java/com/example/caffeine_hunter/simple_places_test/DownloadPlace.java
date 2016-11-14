@@ -21,15 +21,17 @@ import java.util.ArrayList;
 public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
     private String definition = null;
     private Context context = null;
+    private double radius = 0.0;
     private Exception exception = null;
     private PlaceListener listener = null;
     private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
 
     ArrayList<Place> placeList = new ArrayList<Place>();
 
-    public DownloadPlace(PlaceListener listener, Context context) {
+    public DownloadPlace(PlaceListener listener, Context context, double radius) {
         this.listener = listener;
         this.context = context;
+        this.radius = radius;
     }
 
     @Override
@@ -103,7 +105,6 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
 
             placeList = selectionSort(placeList);
 
-            float radius = 5.0f; // Pass actual radius later
             int i = placeList.size() - 1;
 
             while (i > 0){

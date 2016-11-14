@@ -53,7 +53,7 @@ public class MainActivity extends FragmentActivity
     private static final int PLACE_PICKER_FLAG = 1;
     private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
 
-    int radius = 5000; // To be changed using a slider or something...
+    double radius = 5.0; // To be changed using a slider or something...
 
     private static final String[] LOCATION_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -89,9 +89,9 @@ public class MainActivity extends FragmentActivity
 
         String url; //&keyword=coffee&type=cafe
 
-        url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude.toString() + "," + longtitude.toString() + "&keyword=coffee&type=cafe&radius=" + radius +"&sensor=true&key=" + GOOGLE_KEY;
+        url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude.toString() + "," + longtitude.toString() + "&keyword=coffee&type=cafe&radius=" + (radius * 1000) +"&sensor=true&key=" + GOOGLE_KEY;
 
-        DownloadPlace task = new DownloadPlace(this, this);
+        DownloadPlace task = new DownloadPlace(this, this, radius);
         task.execute(url);
 
     }

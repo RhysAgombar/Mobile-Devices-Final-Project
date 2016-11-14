@@ -2,12 +2,22 @@ package com.example.caffeine_hunter.simple_places_test;
 
 import android.graphics.drawable.Drawable;
 
+import java.io.Serializable;
 import java.net.URL;
 
 /**
  * Created by 100515147 on 11/5/2016.
  */
 public class Place {
+    private String id;
+    private String name;
+    private String address;
+    private float lat;
+    private float lng;
+    private String photoRef;
+    private String iconURL;
+    private Drawable image;
+    private boolean visited = false;
 
     public String getId() {
         return id;
@@ -77,16 +87,6 @@ public class Place {
         this.visited = visited;
     }
 
-    private String id;
-    private String name;
-    private String address;
-    private float lat;
-    private float lng;
-    private String photoRef;
-    private String iconURL;
-    private Drawable image;
-    private boolean visited = false;
-
     public Place (String id, String name, String address, float lat, float lng, String photoRef, String iconURL, boolean visited) {
         this.id = id;
         this.name = name;
@@ -103,6 +103,6 @@ public class Place {
     }
 
     public String toString(){
-        return name;
+        return id + " " + name + " " + address + " " + Float.toString(lat) + " " + Float.toString(lng) + " " + photoRef + " " + iconURL + " " + visited;
     }
 }

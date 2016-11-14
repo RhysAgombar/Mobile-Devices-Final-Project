@@ -10,9 +10,11 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -46,8 +48,7 @@ public class PlaceAdapter extends BaseAdapter {
         return position;
     }
 
-
-    public double calcDistance(double longitude, double latitude) {
+    public double calcDistance(double latitude, double longitude) {
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         try {
@@ -59,11 +60,11 @@ public class PlaceAdapter extends BaseAdapter {
                 DecimalFormat df = new DecimalFormat("#.#");
                 double currentLong = location.getLongitude();
                 double currentLat = location.getLatitude();
-                double dLong = currentLong - longitude;
-                double dLat = currentLat - latitude;
-                double a = ((Math.sin((dLat)*Math.PI/180)/2))*(Math.sin((dLat)*Math.PI/180)/2) + Math.cos((latitude)*Math.PI/180) * Math.cos((currentLat)*Math.PI/180)* ((Math.sin((dLong)*Math.PI/180)/2))*(Math.sin((dLong)*Math.PI/180)/2);
+                double dLong = longitude - currentLong;
+                double dLat = latitude - currentLat;
+                double a = ((Math.sin(toRadian(dLat)/2))*(Math.sin(toRadian(dLat)/2))) + Math.cos(toRadian(currentLat)) * Math.cos(toRadian(latitude))* ((Math.sin(toRadian(dLong)/2))*(Math.sin(toRadian(dLong)/2)));
                 double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                double distance = 6373 * c;
+                double distance = 6371 * c;
                 return Double.parseDouble(df.format(distance));
             } else {
                 return -1.0;
@@ -75,6 +76,11 @@ public class PlaceAdapter extends BaseAdapter {
         return -1.0;
 
     }
+
+    protected double toRadian(double value){
+        return value*Math.PI/180;
+    }
+
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -115,21 +121,19 @@ public class PlaceAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 final boolean isChecked = chbx.isChecked();
+
+                data.get(position).setVisited(isChecked);
+
                 if(isChecked){
                     db.addNewElement(data.get(position));
                 } else {
                     db.deleteElementByID(data.get(position).getId());
                 }
-                data.get(position).setVisited(isChecked);
-
             }
         });
 
 
         return convertView;
     }
-
-
-
 
 }

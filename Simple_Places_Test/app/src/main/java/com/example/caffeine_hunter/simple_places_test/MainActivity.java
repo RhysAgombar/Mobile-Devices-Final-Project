@@ -26,6 +26,8 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ListView;
@@ -33,11 +35,21 @@ import android.widget.ListView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 public class MainActivity extends FragmentActivity
             implements OnConnectionFailedListener, PlaceListener, ImageListener {
 
-    private GoogleApiClient mGoogleApiClient;
-    private PlacePicker.IntentBuilder builder;
     private static final int PLACE_PICKER_FLAG = 1;
     private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";
 
@@ -54,20 +66,10 @@ public class MainActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.requestPermissions(LOCATION_PERMS, 23);
         }
-
-        //int test = ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
-        //test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        //test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
         final Double latitude, longtitude;
 
@@ -82,9 +84,6 @@ public class MainActivity extends FragmentActivity
             latitude = 43.9454;
             longtitude = -78.8964;
         //}
-
-
-        builder = new PlacePicker.IntentBuilder();
 
         String url; //&keyword=coffee&type=cafe
 
@@ -109,12 +108,28 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
-    public void handlePlace(ArrayList<com.example.caffeine_hunter.simple_places_test.Place> place) {
+    public void handlePlace(final ArrayList<com.example.caffeine_hunter.simple_places_test.Place> place) {
 
         //ArrayAdapter<com.example.caffeine_hunter.simple_places_test.Place> adapter = new ArrayAdapter<com.example.caffeine_hunter.simple_places_test.Place>(this, android.R.layout.simple_list_item_1, android.R.id.text1, place);
 
         ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
         listView.setAdapter(new PlaceAdapter(this, place));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(), MapActivity.class);
+
+                try {
+                    i.putExtra("place", new PlaceLite(place.get(position)));
+
+                    startActivity(i);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
 
         //int test = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
 

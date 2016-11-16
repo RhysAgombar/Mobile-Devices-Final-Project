@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Caffeine Hunter</string>
+    <string name="placeholder">Placeholder StringPlaceholder String</string>
+    <string name="placeholder_dist">10.5 km</string>
+    <string name="placeholder_address">1700 Simcoe St N1700 Simcoe St N</string>
+    <string name="nearby">Nearby</string>
+    <string name="favourites">Favourites</string>
+    <string name="search">Search</string>
+    <string name="searchRadiusDefault">Search Radius: 0.0km</string>
+
+    <string name="googleAPIkey">AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4</string>
+
+</resources>

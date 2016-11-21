@@ -19,7 +19,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_STATEMENT = "" +
             "create table places(" +
-            "  _id integer primary key," +
+            "  _id text primary key," +
             "  name text not null," +
             "  address text not null," +
             "  lat real not null," +
@@ -61,6 +61,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("_id", place.getId());
         values.put("name", place.getName());
+        values.put("address", place.getAddress());
         values.put("lat", place.getLat());
         values.put("lng", place.getLng());
         values.put("photoRef", place.getPhotoRef());
@@ -75,6 +76,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
 
         String[] columns = new String[] {"_id",
                 "name",
+                "address",
                 "lat",
                 "lng",
                 "photoRef",
@@ -113,6 +115,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("_id", place.getId());
         values.put("name", place.getName());
+        values.put("address", place.getAddress());
         values.put("lat", place.getLat());
         values.put("lng", place.getLng());
         values.put("photoRef", place.getPhotoRef());

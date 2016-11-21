@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Raven on 11/6/2016.
@@ -84,6 +85,14 @@ public class PlaceAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_item, parent, false);
         }
 
+        final PlaceDBHelper db = new PlaceDBHelper(convertView.getContext());
+        List<Place> visitedPlaces = db.getAllElements();
+        for(int i = 0; i < visitedPlaces.size(); i++){
+            if(visitedPlaces.get(i).getId().equals(placeToDisplay.getId())){
+                placeToDisplay.setVisited(true);
+            }
+        }
+
         TextView lblPlaceName = (TextView)convertView.findViewById(R.id.tv_shopName);
         lblPlaceName.setText(placeToDisplay.getName());
 
@@ -107,8 +116,6 @@ public class PlaceAdapter extends BaseAdapter {
 
         chbx.setChecked(placeToDisplay.isVisited());
 
-        final PlaceDBHelper db = new PlaceDBHelper(convertView.getContext());
-
         chbx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +131,7 @@ public class PlaceAdapter extends BaseAdapter {
             }
         });
 
-
+        db.close();
         return convertView;
     }
 

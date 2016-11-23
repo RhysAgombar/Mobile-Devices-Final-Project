@@ -74,15 +74,15 @@ public class MainActivity extends FragmentActivity
         LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); // Instantiate a LocationManager
 
         // Get the current latitude and longitude, or default to the UOIT location if one cannot be found
-     //   if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-       //     Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             DecimalFormat df = new DecimalFormat("#.#");
-         //   latitude = location.getLatitude();
-           // longtitude = location.getLongitude();
-      //  } else {
+            latitude = location.getLatitude();
+            longtitude = location.getLongitude();
+        } else {
             latitude = 43.9454;
             longtitude = -78.8964;
-        //}
+        }
 
         String url;
 

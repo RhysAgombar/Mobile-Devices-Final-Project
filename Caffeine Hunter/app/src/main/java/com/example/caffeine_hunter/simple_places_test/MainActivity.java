@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -45,6 +46,9 @@ public class MainActivity extends FragmentActivity
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.landing_menu);
 
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.flute);
+        mp.start();
+
         SeekBar seek = (SeekBar)findViewById(R.id.searchRadius);                // Create the SeekBar
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() { // Account for changes in the SeekBar
             @Override
@@ -74,15 +78,15 @@ public class MainActivity extends FragmentActivity
         LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); // Instantiate a LocationManager
 
         // Get the current latitude and longitude, or default to the UOIT location if one cannot be found
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        //    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             DecimalFormat df = new DecimalFormat("#.#");
-            latitude = location.getLatitude();
-            longtitude = location.getLongitude();
-        } else {
+        //    latitude = location.getLatitude();
+        //    longtitude = location.getLongitude();
+        //} else {
             latitude = 43.9454;
             longtitude = -78.8964;
-        }
+        //}
 
         String url;
 

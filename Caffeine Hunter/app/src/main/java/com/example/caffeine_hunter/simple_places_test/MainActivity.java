@@ -30,6 +30,7 @@ public class MainActivity extends FragmentActivity
 
     private static final int PLACE_PICKER_FLAG = 1;
     private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4"; // API Key
+    public static boolean played = false;
 
     double radius = 5.0;    // Default radius
 
@@ -42,13 +43,15 @@ public class MainActivity extends FragmentActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.landing_menu);
-
-        MediaPlayer mp = MediaPlayer.create(this, R.raw.flute);
-        mp.start();
-
+        if (!played) {
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.flute);
+            mp.start();
+        played = true;
+        }
         SeekBar seek = (SeekBar)findViewById(R.id.searchRadius);                // Create the SeekBar
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() { // Account for changes in the SeekBar
             @Override
@@ -164,5 +167,12 @@ public class MainActivity extends FragmentActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
+
+    public void back(View v){
+        Intent BackIntent = new Intent(this, MainActivity.class); // Go To The Questi
+        startActivity(BackIntent);
+
+    }
+
 
 }

@@ -25,11 +25,11 @@ public class ImageDownloader extends AsyncTask<ImageData, Void, ImageData> {
 
         try {
             // download the XML data from the service
-            URL url = new URL(params[0].url);
-            int id = params[0].id;
+            URL url = new URL(params[0].url);           // Get the URL passed to the function
+            int id = params[0].id;                      // Get the ID associated with the url
 
-            InputStream content = (InputStream)url.getContent();
-            imgD = new ImageData(id, Drawable.createFromStream(content, "src"));
+            InputStream content = (InputStream)url.getContent();        // Open an InputStream
+            imgD = new ImageData(id, Drawable.createFromStream(content, "src"));    // Create a new ImageData object based on the input
 
 
         } catch (Exception e) {

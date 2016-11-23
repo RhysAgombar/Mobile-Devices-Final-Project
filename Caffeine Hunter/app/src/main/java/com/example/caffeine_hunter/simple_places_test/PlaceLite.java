@@ -13,6 +13,7 @@ public class PlaceLite implements Serializable{
     private float lat;
     private float lng;
 
+    // Smaller, serializable version of a place, easier to send through intents etc.
     public PlaceLite(Place placeToTrim){
         this.id = placeToTrim.getId();
         this.name = placeToTrim.getName();

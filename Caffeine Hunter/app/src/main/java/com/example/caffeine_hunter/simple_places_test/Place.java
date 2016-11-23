@@ -9,13 +9,13 @@ public class Place {
     private String id;
     private String name;
     private String address;
-    private float lat;
-    private float lng;
-    private double dist;
+    private float lat;                      // Latitude
+    private float lng;                      // Longitude
+    private double dist;                    // Distance from user
     private String photoRef;
     private String iconURL;
     private Drawable image;
-    private boolean visited = false;
+    private boolean visited = false;        // Used for the visited database
 
     public String getId() {
         return id;

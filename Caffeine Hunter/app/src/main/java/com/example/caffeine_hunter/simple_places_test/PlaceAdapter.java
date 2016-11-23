@@ -45,6 +45,7 @@ public class PlaceAdapter extends BaseAdapter {
         return position;
     }
 
+    // Function used for calculating the distance, given the current long and lat, and the target long and lat
     public double calcDistance(double latitude, double longitude) {
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
@@ -78,42 +79,41 @@ public class PlaceAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        Place placeToDisplay = data.get(position);
+        Place placeToDisplay = data.get(position);                  // The current place to display
 
         if (convertView == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_item, parent, false);
         }
 
-        final PlaceDBHelper db = new PlaceDBHelper(convertView.getContext());
+        final PlaceDBHelper db = new PlaceDBHelper(convertView.getContext());           // Populate a list of places
         List<Place> visitedPlaces = db.getAllElements();
         for(int i = 0; i < visitedPlaces.size(); i++){
-            if(visitedPlaces.get(i).getId().equals(placeToDisplay.getId())){
+            if(visitedPlaces.get(i).getId().equals(placeToDisplay.getId())){            // Check if the list is full, or if there is room for another item
                 placeToDisplay.setVisited(true);
             }
         }
 
-        TextView lblPlaceName = (TextView)convertView.findViewById(R.id.tv_shopName);
+        TextView lblPlaceName = (TextView)convertView.findViewById(R.id.tv_shopName);   // Display the name
         lblPlaceName.setText(placeToDisplay.getName());
 
-        TextView lblAddress = (TextView)convertView.findViewById(R.id.tv_address);
+        TextView lblAddress = (TextView)convertView.findViewById(R.id.tv_address);      // Display the address
         lblAddress.setText(placeToDisplay.getAddress());
 
         TextView lblDistance = (TextView)convertView.findViewById(R.id.tv_distance);
 
         double dist = calcDistance(placeToDisplay.getLat(), placeToDisplay.getLng());
-        String displTxt = dist + "km";
+        String displTxt = dist + "km";   // Create the string to display
 
         if (dist < 0) {
-            displTxt = "ERR";
+            displTxt = "ERR";           // Error checking, provide a default value
         }
-        lblDistance.setText(displTxt);
+        lblDistance.setText(displTxt);  // Populate the view with the calculated distance
 
         ImageView imgPlacePic = (ImageView)convertView.findViewById(R.id.iv_picture);
-        imgPlacePic.setImageDrawable(placeToDisplay.getImage());
+        imgPlacePic.setImageDrawable(placeToDisplay.getImage());        // Display the image corresponding to the place
 
-        final CheckBox chbx = (CheckBox)convertView.findViewById(R.id.cb_visited); // TODO: Actually update based on data
-
+        final CheckBox chbx = (CheckBox)convertView.findViewById(R.id.cb_visited);
         chbx.setChecked(placeToDisplay.isVisited());
 
         chbx.setOnClickListener(new View.OnClickListener() {
@@ -124,9 +124,9 @@ public class PlaceAdapter extends BaseAdapter {
                 data.get(position).setVisited(isChecked);
 
                 if(isChecked){
-                    db.addNewElement(data.get(position));
+                    db.addNewElement(data.get(position));               // If the box is checked, add it to the 'Visited' database
                 } else {
-                    db.deleteElementByID(data.get(position).getId());
+                    db.deleteElementByID(data.get(position).getId());   // If it's unchecked, remove it
                 }
             }
         });

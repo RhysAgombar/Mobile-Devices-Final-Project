@@ -18,6 +18,7 @@
         android:id="@+id/searchRadius"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:layout_above="@id/searchButton"
         android:progressDrawable="@color/colorPrimary"
         android:max="250"

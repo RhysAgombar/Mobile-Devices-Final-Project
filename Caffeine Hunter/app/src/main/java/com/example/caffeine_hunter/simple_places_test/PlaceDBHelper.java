@@ -15,9 +15,9 @@ import java.util.List;
 
 public class PlaceDBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_FILENAME = "places.db";
+    private static final String DATABASE_FILENAME = "places.db";    // Create the database
 
-    private static final String CREATE_STATEMENT = "" +
+    private static final String CREATE_STATEMENT = "" +             // Create the table
             "create table places(" +
             "  _id text primary key," +
             "  name text not null," +
@@ -51,12 +51,12 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
         db.delete("places", "", new String[] {});
     }
 
-    public void deleteElementByID(String id) {
+    public void deleteElementByID(String id) {                      // Delete an element based on ID
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("places", "_id = ?", new String[] { ""+id });
     }
 
-    public void addNewElement(Place place) {
+    public void addNewElement(Place place) {                        // Add a new place to the database
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("_id", place.getId());
@@ -70,7 +70,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
         db.insert("places", null, values);
     }
 
-    public List<Place> getAllElements() {
+    public List<Place> getAllElements() {                       // Return a list of all elements
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Place> results = new ArrayList<>();
 
@@ -109,7 +109,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
         return results;
     }
 
-    public boolean updateElement(Place place) {
+    public boolean updateElement(Place place) {                     // Update an element
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

@@ -6,7 +6,7 @@
     <string name="nearby">Nearby</string>
     <string name="favourites">Favourites</string>
     <string name="search">Search</string>
-    <string name="searchRadiusDefault">Search Radius: 0.0km</string>
+    <string name="searchRadiusDefault">Search Radius: 5.0km</string>
     <string name="back">Back</string>
     <string name="standBy">Search is loading.\n Please stand by…</string>
 

@@ -8,6 +8,7 @@
     <string name="search">Search</string>
     <string name="searchRadiusDefault">Search Radius: 0.0km</string>
     <string name="back">Back</string>
+    <string name="standBy">Search is loading.\n Please stand by…</string>
 
 
     <string name="googleAPIkey">AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4</string>

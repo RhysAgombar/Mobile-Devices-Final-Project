@@ -31,6 +31,7 @@ public class MainActivity extends FragmentActivity
     private static final int PLACE_PICKER_FLAG = 1;
     private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4"; // API Key
     public static boolean played = false;
+    static MediaPlayer mp;
 
     double radius = 5.0;    // Default radius
 
@@ -48,9 +49,9 @@ public class MainActivity extends FragmentActivity
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.landing_menu);
         if (!played) {
-            MediaPlayer mp = MediaPlayer.create(this, R.raw.flute);
+            mp = MediaPlayer.create(this, R.raw.flute);
             mp.start();
-        played = true;
+            played = true;
         }
         SeekBar seek = (SeekBar)findViewById(R.id.searchRadius);                // Create the SeekBar
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() { // Account for changes in the SeekBar
@@ -71,6 +72,16 @@ public class MainActivity extends FragmentActivity
 
     public void beginSearch(View view) {
         setContentView(R.layout.activity_main);                 // Go to the main layout
+
+        TextView standbyText = (TextView)findViewById(R.id.tv_standBy);
+
+        if(standbyText.getVisibility() == View.INVISIBLE){
+            standbyText.setVisibility(View.VISIBLE);
+        }
+
+        if (mp.isPlaying()){
+            mp.pause();
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.requestPermissions(LOCATION_PERMS, 23);
@@ -114,6 +125,12 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public void handlePlace(final ArrayList<com.example.caffeine_hunter.simple_places_test.Place> place) {
+
+        TextView standbyText = (TextView)findViewById(R.id.tv_standBy);
+
+        if(standbyText.getVisibility() == View.VISIBLE){
+            standbyText.setVisibility(View.INVISIBLE);
+        }
 
         ListView listView = (ListView)findViewById(R.id.lv_PlacesList);
         listView.setAdapter(new PlaceAdapter(this, place));                 // Create List Adapter
@@ -169,9 +186,8 @@ public class MainActivity extends FragmentActivity
     }
 
     public void back(View v){
-        Intent BackIntent = new Intent(this, MainActivity.class); // Go To The Questi
+        Intent BackIntent = new Intent(this, MainActivity.class); // Go back to the main screen
         startActivity(BackIntent);
-
     }
 
 

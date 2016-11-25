@@ -11,6 +11,7 @@ By: Rhys Agombar, Dakota Hill, Colton Howe
 ###Dakota Hill
 - Layout Design
 - Graphics and Sound Display
+- Commenting
 
 ###Colton Howe
 - Database Integration
@@ -22,7 +23,7 @@ None, beyond standard app install
 
 In order to get correct search results, Location permissions must be granted when the prompt is displayed
 
-Real device testing preferred, if possible
+Real device testing greatly preferred / recommended
 
 #Features
 - Slider on main screen controls search radius

@@ -86,7 +86,10 @@ public class MainActivity extends FragmentActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.requestPermissions(LOCATION_PERMS, 23);
         }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){ // Waits until permission is given/denied
         final Double latitude, longtitude;
 
         LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); // Instantiate a LocationManager

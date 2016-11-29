@@ -28,5 +28,6 @@ Real device testing greatly preferred / recommended
 #Features
 - Slider on main screen controls search radius
 - Search button finds all coffee shops within the search radius and displays them in a list
-- The checkbox in each list item is used to store if a place has been visited by the user before or not (it's up to the user to update this for their own record keeping)
+- The checkbox in each list item is used to store if a place has been visited by the user before or not (it's up to the user to update this for their own record keeping). The items checked are stored in a database, so that when they are located in another search, they are marked as checked. 
+
 - Tapping on a list item will cause a google map to open, showing the location of the store with a pin, and the location of the user with a blue dot. (hitting the phone's physical back button will bring you back to the search screen)

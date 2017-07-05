@@ -24,7 +24,7 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
     private double radius = 0.0;
     private Exception exception = null;
     private PlaceListener listener = null;
-    private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4";     // API Key
+    private static final String GOOGLE_KEY = "Insert API Key Here";     // API Key
 
     ArrayList<Place> placeList = new ArrayList<Place>();       // ArrayList to store the downloaded places
 
@@ -52,8 +52,6 @@ public class DownloadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
             } finally {
                 is.close();                                 // Close the InputStream
             }
-
-// CoQBdwAAACC-uRAo9QRA3m_usydxkeqjeSUDPWNUjU5SofvIkB3JTdPN0tOfg8ZgYI_Hd5xnrgNy8jNNe_uKOnLBOlxEnPSYMC_0sNCHITy1m_nKXr96jQpNbR8TzkuLIhgnSF2erVOeBQ8-Knp8AeIh8hIwK6scnprBnjVwpAJAc9BFJro2EhCqi3Hn9ECnXE65XgVcIMaPGhRvIrZs2hryBlL33QKiFyeqmiifbA
 
             JSONValue.parse(jsonText);
 

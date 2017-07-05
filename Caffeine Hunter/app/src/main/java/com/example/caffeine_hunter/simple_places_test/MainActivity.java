@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity
             implements OnConnectionFailedListener, PlaceListener, ImageListener {
 
     private static final int PLACE_PICKER_FLAG = 1;
-    private static final String GOOGLE_KEY = "AIzaSyCDNRpAddGY0u0wE2VZidReEQ1PomT4uG4"; // API Key
+    private static final String GOOGLE_KEY = "Add API Key Here"; // API Key
     public static boolean played = false;
     static MediaPlayer mp;
 

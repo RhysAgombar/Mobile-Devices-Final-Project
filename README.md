@@ -1,31 +1,31 @@
 # Caffeine Hunter
 By: Rhys Agombar, Dakota Hill, Colton Howe
 
-#Work Breakdown
-###Rhys Agombar
+# Work Breakdown
+### Rhys Agombar
 - Google Places and Google Maps integration (and anything relating to the two APIs)
 - Search Tasks (In tandem with Colton)
 - Download tasks
 - Listview update tasks
 
-###Dakota Hill
+### Dakota Hill
 - Layout Design
 - Graphics and Sound Display
 - Commenting
 
-###Colton Howe
+### Colton Howe
 - Database Integration
 - Math for Location Distances
 - Search Tasks (In tandem with Rhys)
 
-#Install Instructions
+# Install Instructions
 None, beyond standard app install
 
 In order to get correct search results, Location permissions must be granted when the prompt is displayed
 
 Real device testing greatly preferred / recommended
 
-#Features
+# Features
 - Slider on main screen controls search radius
 - Search button finds all coffee shops within the search radius and displays them in a list
 - The checkbox in each list item is used to store if a place has been visited by the user before or not (it's up to the user to update this for their own record keeping). The items checked are stored in a database, so that when they are located in another search, they are marked as checked. 
